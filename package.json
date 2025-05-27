@@ -13,6 +13,8 @@
         "start": "vinxi start"
     },
     "dependencies": {
+        "@mediapipe/camera_utils": "^0.3.1675466862",
+        "@mediapipe/drawing_utils": "^0.3.1675466124",
         "@mediapipe/hands": "^0.4.1675469240",
         "@radix-ui/react-slot": "^1.2.3",
         "@tailwindcss/postcss": "^4.1.7",
