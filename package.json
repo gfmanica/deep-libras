@@ -13,10 +13,12 @@
         "start": "vinxi start"
     },
     "dependencies": {
+        "@mediapipe/hands": "^0.4.1675469240",
         "@radix-ui/react-slot": "^1.2.3",
         "@tailwindcss/postcss": "^4.1.7",
         "@tanstack/react-router": "^1.120.11",
         "@tanstack/react-start": "^1.120.11",
+        "@tensorflow/tfjs": "^4.22.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^0.511.0",

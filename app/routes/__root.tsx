@@ -21,7 +21,12 @@ export const Route = createRootRoute({
                 content: 'width=device-width, initial-scale=1'
             },
             {
-                title: 'TanStack Start Starter'
+                title: 'Deep Libras'
+            },
+            {
+                name: 'description',
+                content:
+                    'Deep Libras is a platform to translate Libras to Portuguese.'
             }
         ],
         links: [
@@ -49,7 +54,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                 <HeadContent />
             </head>
             <body>
-                {children}
+                <main className="flex h-dvh w-dvw flex-col">{children}</main>
+
                 <Scripts />
             </body>
         </html>
