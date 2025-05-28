@@ -46,6 +46,7 @@ Inicia o servidor de produção após a compilação do projeto.
 
 ## Tecnologias Utilizadas
 
+- TanStack Start
 - React
 - Tailwind CSS
 - MediaPipe
