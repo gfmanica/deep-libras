@@ -58,7 +58,6 @@ function RouteComponent() {
                     className="rounded bg-purple-500 px-4 py-2 text-white transition-colors hover:bg-purple-600"
                     disabled={trainingStatus !== 'ready'}
                 >
-                    {trainingStatus}
                     Baixar Modelo
                 </button>
             </div>

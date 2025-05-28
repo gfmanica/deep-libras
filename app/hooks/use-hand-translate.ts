@@ -5,7 +5,7 @@ import * as tf from '@tensorflow/tfjs';
 import { useHandTracking } from './use-hand-tracking';
 
 export function useHandTranslate({ model }: { model: tf.LayersModel | null }) {
-    const [predictedLetter, setPredictedLetter] = useState('-');
+    const [predictedLetter, setPredictedLetter] = useState('');
 
     const action = useCallback(
         (results) => {
@@ -20,7 +20,7 @@ export function useHandTranslate({ model }: { model: tf.LayersModel | null }) {
                         const index = arr[0].indexOf(Math.max(...arr[0]));
                         const caracteres =
                             'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'.split('');
-                        setPredictedLetter(caracteres[index] || '-');
+                        setPredictedLetter(caracteres[index] || '');
                     })
                     .catch((error) => {
                         console.error('Erro ao fazer predição:', error);

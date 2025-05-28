@@ -14,6 +14,8 @@ function RouteComponent() {
         model
     });
 
+    console.log(predictedLetter);
+
     return (
         <div className="flex flex-col items-center gap-4 p-4">
             <h1 className="text-2xl font-bold">
@@ -55,7 +57,10 @@ function RouteComponent() {
                     height={480}
                     className="absolute top-0 left-0"
                 />
-                <div className="absolute top-4 left-4 rounded-lg bg-black/50 p-4 text-4xl font-bold text-white">
+                <div
+                    data-hidden={!predictedLetter}
+                    className="absolute top-4 left-4 rounded-lg bg-black/50 p-4 text-4xl font-bold text-white transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                >
                     Letra: {predictedLetter}
                 </div>
             </div>
