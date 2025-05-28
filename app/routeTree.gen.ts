@@ -11,20 +11,20 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TrainImport } from './routes/train'
 import { Route as IndexImport } from './routes/index'
-import { Route as TrainIndexImport } from './routes/train/index'
 
 // Create/Update Routes
+
+const TrainRoute = TrainImport.update({
+  id: '/train',
+  path: '/train',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TrainIndexRoute = TrainIndexImport.update({
-  id: '/train/',
-  path: '/train/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +39,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/train/': {
-      id: '/train/'
+    '/train': {
+      id: '/train'
       path: '/train'
       fullPath: '/train'
-      preLoaderRoute: typeof TrainIndexImport
+      preLoaderRoute: typeof TrainImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,18 +53,18 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/train': typeof TrainIndexRoute
+  '/train': typeof TrainRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/train': typeof TrainIndexRoute
+  '/train': typeof TrainRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/train/': typeof TrainIndexRoute
+  '/train': typeof TrainRoute
 }
 
 export interface FileRouteTypes {
@@ -72,18 +72,18 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/train'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/train'
-  id: '__root__' | '/' | '/train/'
+  id: '__root__' | '/' | '/train'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TrainIndexRoute: typeof TrainIndexRoute
+  TrainRoute: typeof TrainRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TrainIndexRoute: TrainIndexRoute,
+  TrainRoute: TrainRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +97,14 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/train/"
+        "/train"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/train/": {
-      "filePath": "train/index.tsx"
+    "/train": {
+      "filePath": "train.tsx"
     }
   }
 }

@@ -1,23 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { useHandTracking } from '../../hooks/useHandTracking';
+import { useDownloadModel } from '@/hooks/use-download-model';
+import { useHandCapture } from '@/hooks/use-hand-capture';
+import { useTrainModel } from '@/hooks/use-train-model';
 
-export const Route = createFileRoute('/train/')({
+export const Route = createFileRoute('/train')({
     component: RouteComponent
 });
 
 function RouteComponent() {
-    const {
-        videoRef,
-        canvasRef,
-        currentLetter,
-        isTraining,
-        trainingProgress,
-        isModelReady,
-        downloadData,
-        trainModel,
-        downloadModel
-    } = useHandTracking();
+    const { canvasRef, videoRef, currentLetter, collectedData } =
+        useHandCapture();
+    const { trainModel, model, trainingStatus, trainingProgress } =
+        useTrainModel({ collectedData });
+    const { downloadModel } = useDownloadModel({ model });
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -48,26 +44,21 @@ function RouteComponent() {
 
             <div className="flex gap-4">
                 <button
-                    onClick={downloadData}
-                    className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
-                    disabled={isTraining}
-                >
-                    Baixar JSON
-                </button>
-
-                <button
                     onClick={trainModel}
                     className="rounded bg-green-500 px-4 py-2 text-white transition-colors hover:bg-green-600"
-                    disabled={isTraining}
+                    disabled={trainingStatus === 'training'}
                 >
-                    {isTraining ? 'Treinando...' : 'Treinar Modelo'}
+                    {trainingStatus === 'training'
+                        ? 'Treinando...'
+                        : 'Treinar Modelo'}
                 </button>
 
                 <button
                     onClick={downloadModel}
                     className="rounded bg-purple-500 px-4 py-2 text-white transition-colors hover:bg-purple-600"
-                    disabled={!isModelReady || isTraining}
+                    disabled={trainingStatus !== 'ready'}
                 >
+                    {trainingStatus}
                     Baixar Modelo
                 </button>
             </div>

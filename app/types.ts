@@ -23,3 +23,5 @@ export interface ModelConfig {
     learningRate: number;
     epochs: number;
 }
+
+export type TrainingStatus = 'idle' | 'training' | 'ready' | 'error';
