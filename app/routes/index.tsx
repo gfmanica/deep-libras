@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpToLine } from 'lucide-react';
 
 import { useHandTranslate } from '@/hooks/use-hand-translate';
 import { useImportModel } from '@/hooks/use-import-model';
@@ -15,7 +16,7 @@ function RouteComponent() {
     });
 
     return (
-        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/40 to-green-900/90 p-4 pt-12">
+        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-8 pt-12">
             <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
                 Traduza{' '}
                 <span className="font-instrument tracking-wider italic">
@@ -56,24 +57,38 @@ function RouteComponent() {
                 </div>
             </div>
 
-            <div className="text-lg font-light text-white">
-                {modelStatus}
-            </div>
+            {/* <div className="text-lg font-light text-white">{modelStatus}</div> */}
 
-            <div className="mb-4 flex gap-4">
+            <p className="max-w-[480px] text-center text-sm font-light text-white">
+                Para a tradução funcionar, você precisa importar os modelos com
+                as extensões <span className="font-semibold">json</span> e{' '}
+                <span className="font-semibold">bin</span>, gerados a partir do
+                treino realizado. Caso não tenha treinado, você pode{' '}
+                <Link
+                    to="/train"
+                    className="underline-offset-4 font-semibold underline"
+                >
+                    treinar um modelo
+                </Link>
+                .
+            </p>
+
+            <div className="flex items-center gap-4">
                 <input
+                    id="file-upload"
                     type="file"
                     onChange={handleFileChange}
                     multiple
                     accept=".json,.bin"
-                    className="rounded border px-4 py-2"
+                    className="hidden"
                 />
-                <button
-                    onClick={loadModel}
-                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-blue-800 to-blue-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
+
+                <label
+                    htmlFor="file-upload"
+                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/40 bg-white/40 p-2 px-4 py-2 pl-4 text-black shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105"
                 >
-                    Baixar modelo
-                </button>
+                    Selecionar arquivos do modelo <ArrowUpToLine size={16} />
+                </label>
             </div>
         </div>
     );

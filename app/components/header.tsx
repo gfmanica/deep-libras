@@ -26,7 +26,7 @@ export function Header() {
 
                 <Link
                     to="/"
-                    className="rounded-lg bg-gradient-to-tr from-green-800 to-green-600 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103"
+                    className="rounded-lg bg-gradient-to-tr border border-green-800/10 from-green-900/90 to-green-700/70 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103"
                 >
                     Traduzir{' '}
                     <span className="font-instrument tracking-wider italic">

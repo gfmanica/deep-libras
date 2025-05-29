@@ -72,7 +72,7 @@ function RouteComponent() {
 
                     <div
                         data-hidden={!currentLetter}
-                        className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                        className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
                     >
                         {currentLetter}
                     </div>
@@ -144,7 +144,7 @@ function RouteComponent() {
             <div className="flex gap-4">
                 <button
                     onClick={trainModel}
-                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-green-800 to-green-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
+                    className="cursor-pointer rounded-lg border border-green-800/10 bg-gradient-to-tr from-green-900/90 to-green-700/70 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
                     disabled={trainingStatus === 'training'}
                 >
                     {trainingStatus === 'training'
@@ -154,7 +154,7 @@ function RouteComponent() {
 
                 <button
                     onClick={downloadModel}
-                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-blue-800 to-blue-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
+                    className="cursor-pointer rounded-lg border border-blue-800/10 bg-gradient-to-tr from-blue-900/90 to-blue-700/70 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
                     disabled={trainingStatus !== 'ready'}
                 >
                     Baixar modelo
