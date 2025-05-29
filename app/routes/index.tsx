@@ -8,18 +8,57 @@ export const Route = createFileRoute('/')({
 });
 
 function RouteComponent() {
-    const { modelStatus, handleFileChange, loadModel, model, modelClasses } =
+    const { modelStatus, handleFileChange, loadModel, model } =
         useImportModel();
     const { videoRef, canvasRef, predictedLetter } = useHandTranslate({
-        model,
-        modelClasses
+        model
     });
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4">
-            <h1 className="text-2xl font-bold">
-                Reconhecimento de Letra em Libras
+        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/40 to-green-900/90 p-4 pt-12">
+            <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
+                Traduza{' '}
+                <span className="font-instrument tracking-wider italic">
+                    {' '}
+                    Libras
+                </span>{' '}
+                para Português. Em tempo{' '}
+                <span className="font-instrument tracking-wider italic">
+                    real.
+                </span>
             </h1>
+
+            <p className="text-center text-sm font-light text-white">
+                Atualmente, o modelo é capaz de traduzir apenas letras e
+                números.
+            </p>
+
+            <div className="relative rounded-3xl border border-green-800/40 shadow-lg shadow-white/10">
+                <video
+                    ref={videoRef}
+                    width={640}
+                    height={480}
+                    autoPlay
+                    muted
+                    className="scale-x-[-1] transform rounded-3xl"
+                />
+                <canvas
+                    ref={canvasRef}
+                    width={640}
+                    height={480}
+                    className="absolute top-0 left-0 rounded-3xl"
+                />
+                <div
+                    data-hidden={!predictedLetter}
+                    className="absolute top-4 left-4 rounded-lg bg-black/50 p-4 text-4xl font-bold text-white transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                >
+                    Letra: {predictedLetter}
+                </div>
+            </div>
+
+            <div className="text-lg font-light text-white">
+                {modelStatus}
+            </div>
 
             <div className="mb-4 flex gap-4">
                 <input
@@ -31,37 +70,10 @@ function RouteComponent() {
                 />
                 <button
                     onClick={loadModel}
-                    className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
+                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-blue-800 to-blue-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                    Carregar Modelo
+                    Baixar modelo
                 </button>
-            </div>
-
-            <div className="text-lg font-semibold text-gray-700">
-                {modelStatus}
-            </div>
-
-            <div className="relative">
-                <video
-                    ref={videoRef}
-                    width={640}
-                    height={480}
-                    autoPlay
-                    muted
-                    className="scale-x-[-1] transform"
-                />
-                <canvas
-                    ref={canvasRef}
-                    width={640}
-                    height={480}
-                    className="absolute top-0 left-0"
-                />
-                <div
-                    data-hidden={!predictedLetter}
-                    className="absolute top-4 left-4 rounded-lg bg-black/50 p-4 text-4xl font-bold text-white transition-opacity duration-300 data-[hidden=true]:opacity-0"
-                >
-                    Letra: {predictedLetter}
-                </div>
             </div>
         </div>
     );

@@ -88,7 +88,7 @@ function RouteComponent() {
                         listagem para excluir a informação coletada.
                     </p>
 
-                    <h1 className="text-xl font-light">Caracteres treinados</h1>
+                    <h1 className="text-xl font-light">Caracteres coletados</h1>
 
                     <div className="flex flex-wrap gap-4">
                         {Object.entries(groupedCollectedData()).map(
