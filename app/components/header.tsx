@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 export function Header() {
     return (
-        <header className="fixed top-0 right-0 left-0 z-50 mx-auto mt-4 flex w-[calc(100%-64px)] max-w-7xl items-center justify-between rounded-xl border-b border-white/40 bg-white/70 p-2 pl-4 shadow-md backdrop-blur-md">
+        <header className="fixed top-0 right-0 left-0 z-50 mx-auto mt-4 flex w-[calc(100%-64px)] max-w-7xl items-center justify-between rounded-xl border-b border-white/40 bg-white/40 p-2 pl-4 shadow-md backdrop-blur-md">
             <h1 className="text-2xl">
                 <Link
                     to="/"
@@ -26,7 +26,7 @@ export function Header() {
 
                 <Link
                     to="/"
-                    className="rounded-lg bg-gradient-to-tr from-green-800 to-green-600 px-3 py-1 text-white shadow-xl transition-all hover:scale-103"
+                    className="rounded-lg bg-gradient-to-tr from-green-800 to-green-600 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103"
                 >
                     Traduzir{' '}
                     <span className="font-instrument tracking-wider italic">

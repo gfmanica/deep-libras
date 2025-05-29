@@ -55,14 +55,12 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                 <HeadContent />
             </head>
 
-            <body className="bg-zinc-100/80">
+            <body>
                 <Header />
 
                 <main className="flex h-dvh w-dvw flex-col gap-2">
-                    <div className="m-2 flex-1 rounded-xl bg-white p-4 pt-[80px]">
-                        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-                            {children}
-                        </div>
+                    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4 pt-[80px]">
+                        {children}
                     </div>
                 </main>
 
