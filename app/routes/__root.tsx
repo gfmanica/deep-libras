@@ -55,11 +55,13 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                 <HeadContent />
             </head>
 
-            <body>
-                <main className="flex h-dvh w-dvw flex-col">
+            <body className="bg-zinc-100/80">
+                <main className="flex h-dvh w-dvw flex-col gap-2">
                     <Header />
 
-                    {children}
+                    <div className="m-2 flex flex-1 flex-col items-center gap-4 rounded-xl bg-white p-4 pt-[80px]">
+                        {children}
+                    </div>
                 </main>
 
                 <Scripts />

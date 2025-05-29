@@ -16,7 +16,7 @@ function RouteComponent() {
     const { downloadModel } = useDownloadModel({ model });
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4">
+        <>
             <h1 className="text-2xl font-bold">Treino de Libras</h1>
 
             <div className="relative">
@@ -67,6 +67,6 @@ function RouteComponent() {
                     {trainingProgress}
                 </pre>
             )}
-        </div>
+        </>
     );
 }
