@@ -2,9 +2,11 @@ import { useState } from 'react';
 
 import * as tf from '@tensorflow/tfjs';
 
+import { ImportingStatus } from '@/types';
+
 export function useImportModel() {
     const [model, setModel] = useState<tf.LayersModel | null>(null);
-    const [modelStatus, setModelStatus] = useState('Nenhum modelo carregado');
+    const [modelStatus, setModelStatus] = useState<ImportingStatus>('idle');
 
     /**
      * Define o modelo para previsão usando os arquivos selecionados
@@ -18,7 +20,7 @@ export function useImportModel() {
             return;
         }
 
-        setModelStatus('Carregando modelo...');
+        setModelStatus('importing');
 
         const handler = tf.io.browserFiles(files);
 
@@ -26,12 +28,12 @@ export function useImportModel() {
             .then((loadedModel) => {
                 setModel(loadedModel);
 
-                setModelStatus('✅ Modelo carregado com sucesso!');
+                setModelStatus('success');
             })
             .catch((error) => {
                 console.error('Erro ao carregar modelo:', error);
 
-                setModelStatus('❌ Erro ao carregar modelo.');
+                setModelStatus('error');
             });
     };
 

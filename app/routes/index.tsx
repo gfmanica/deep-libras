@@ -3,6 +3,7 @@ import { ArrowUpToLine } from 'lucide-react';
 
 import { useHandTranslate } from '@/hooks/use-hand-translate';
 import { useImportModel } from '@/hooks/use-import-model';
+import { importingText } from '@/types';
 
 export const Route = createFileRoute('/')({
     component: RouteComponent
@@ -10,12 +11,13 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
     const { modelStatus, loadModel, model } = useImportModel();
+
     const { videoRef, canvasRef, predictedLetter } = useHandTranslate({
         model
     });
 
     return (
-        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-8 pt-12">
+        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12">
             <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
                 Traduza{' '}
                 <span className="font-instrument tracking-wider italic">
@@ -48,15 +50,14 @@ function RouteComponent() {
                     height={480}
                     className="absolute top-0 left-0 rounded-3xl"
                 />
+
                 <div
                     data-hidden={!predictedLetter}
-                    className="absolute top-4 left-4 rounded-lg bg-black/50 p-4 text-4xl font-bold text-white transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                    className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
                 >
-                    Letra: {predictedLetter}
+                    {predictedLetter}
                 </div>
             </div>
-
-            {/* <div className="text-lg font-light text-white">{modelStatus}</div> */}
 
             <p className="max-w-[480px] text-center text-sm font-light text-white">
                 Para a tradução funcionar, você precisa importar os modelos com
@@ -72,22 +73,29 @@ function RouteComponent() {
                 .
             </p>
 
-            <div className="flex items-center gap-4">
-                <input
-                    id="file-upload"
-                    type="file"
-                    onChange={loadModel}
-                    multiple
-                    accept=".json,.bin"
-                    className="hidden"
-                />
+            <div className="flex flex-col items-center gap-2">
+                <div className="flex items-center gap-4">
+                    <input
+                        id="file-upload"
+                        type="file"
+                        onChange={loadModel}
+                        multiple
+                        accept=".json,.bin"
+                        className="hidden"
+                    />
 
-                <label
-                    htmlFor="file-upload"
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/40 bg-white/40 p-2 px-4 py-2 pl-4 text-black shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105"
-                >
-                    Selecionar arquivos do modelo <ArrowUpToLine size={16} />
-                </label>
+                    <label
+                        htmlFor="file-upload"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/40 bg-white/40 p-2 px-4 py-2 pl-4 text-black shadow-md backdrop-blur-md transition-all duration-300 hover:scale-105"
+                    >
+                        Selecionar arquivos do modelo{' '}
+                        <ArrowUpToLine size={16} />
+                    </label>
+                </div>
+
+                <p className="text-sm font-light text-white">
+                    {importingText[modelStatus]}
+                </p>
             </div>
         </div>
     );

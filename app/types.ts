@@ -25,3 +25,11 @@ export interface ModelConfig {
 }
 
 export type TrainingStatus = 'idle' | 'training' | 'ready' | 'error';
+export type ImportingStatus = 'idle' | 'importing' | 'error' | 'success';
+
+export const importingText: Record<ImportingStatus, string> = {
+    idle: 'Nenhum modelo carregado',
+    importing: 'Carregando modelo...',
+    error: 'Erro ao carregar modelo.',
+    success: 'Modelo carregado com sucesso!'
+} as const;
