@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { X } from 'lucide-react';
 
 import { useDownloadModel } from '@/hooks/use-download-model';
 import { useHandCapture } from '@/hooks/use-hand-capture';
@@ -9,11 +10,32 @@ export const Route = createFileRoute('/train')({
 });
 
 function RouteComponent() {
-    const { canvasRef, videoRef, currentLetter, collectedData } =
-        useHandCapture();
+    const {
+        canvasRef,
+        videoRef,
+        currentLetter,
+        collectedData,
+        removeCollectedData
+    } = useHandCapture();
     const { trainModel, model, trainingStatus, trainingProgress } =
         useTrainModel({ collectedData });
     const { downloadModel } = useDownloadModel({ model });
+
+    const groupedCollectedData = () => {
+        const initial: Record<string, number> = {};
+
+        collectedData.forEach((item) => {
+            if (!initial[item.label]) {
+                initial[item.label] = 0;
+            }
+
+            initial[item.label] += 1;
+        });
+
+        return initial;
+    };
+
+    console.log(groupedCollectedData());
 
     return (
         <>
@@ -68,7 +90,33 @@ function RouteComponent() {
                         listagem para excluir a informação coletada.
                     </p>
 
-                    <h1 className="text-xl font-light">Letras treinadas</h1>
+                    <h1 className="text-xl font-light">Caracteres treinados</h1>
+
+                    <div className="flex flex-wrap gap-4">
+                        {Object.entries(groupedCollectedData()).map(
+                            ([label, count]) => (
+                                <div
+                                    key={label}
+                                    className="relative inline-flex h-16 w-12 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-gradient-to-tr from-zinc-50 to-zinc-100 shadow-sm"
+                                >
+                                    <button
+                                        onClick={() =>
+                                            removeCollectedData(label)
+                                        }
+                                        className="absolute -top-2 -right-2 cursor-pointer rounded-full border border-zinc-300 bg-zinc-100 text-xs text-zinc-800 transition-all hover:scale-105"
+                                    >
+                                        <X size={14} strokeWidth={2} />
+                                    </button>
+                                    <p className="text-2xl text-zinc-800">
+                                        {label}
+                                    </p>
+                                    <p className="absolute right-1 bottom-1 text-xs text-black">
+                                        {count}
+                                    </p>
+                                </div>
+                            )
+                        )}
+                    </div>
                 </div>
             </div>
 

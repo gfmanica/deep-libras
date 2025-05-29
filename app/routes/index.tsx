@@ -8,13 +8,12 @@ export const Route = createFileRoute('/')({
 });
 
 function RouteComponent() {
-    const { modelStatus, handleFileChange, loadModel, model } =
+    const { modelStatus, handleFileChange, loadModel, model, modelClasses } =
         useImportModel();
     const { videoRef, canvasRef, predictedLetter } = useHandTranslate({
-        model
+        model,
+        modelClasses
     });
-
-    console.log(predictedLetter);
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">

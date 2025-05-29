@@ -53,10 +53,20 @@ export function useHandCapture() {
         }
     }, [results]);
 
+    /**
+     * Remove um item da lista de dados coletados.
+     */
+    const removeCollectedData = (label: string) => {
+        setCollectedData((prevCollectedData) =>
+            prevCollectedData.filter((item) => item.label !== label)
+        );
+    };
+
     return {
         videoRef,
         canvasRef,
         currentLetter,
-        collectedData
+        collectedData,
+        removeCollectedData
     };
 }
