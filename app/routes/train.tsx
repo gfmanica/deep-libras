@@ -52,7 +52,7 @@ function RouteComponent() {
 
                     <div
                         data-hidden={!currentLetter}
-                        className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100/80 text-3xl text-black opacity-100 transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                        className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
                     >
                         {currentLetter}
                     </div>
