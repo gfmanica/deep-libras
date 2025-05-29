@@ -1,28 +1,35 @@
 import { Link } from '@tanstack/react-router';
 
-import { Button } from './ui/button';
-
 export function Header() {
     return (
-        <header className="flex p-2">
-            <h1 className="absolute left-4 text-2xl font-bold">
-                <Link to="/">DeepLibras</Link>
+        <header className="mx-auto mt-4 flex w-[calc(100%-64px)] max-w-7xl items-center justify-between rounded-xl border-b border-white/40 bg-white/30 p-2 pl-4 shadow-md backdrop-blur-md">
+            <h1 className="text-2xl">
+                <Link to="/" className="flex items-center gap-0.5">
+                    <span className="font-inter font-light">Deep</span>
+
+                    <span className="font-instrument tracking-wide italic">
+                        Libras
+                    </span>
+                </Link>
             </h1>
 
-            <nav className="flex flex-1 items-center justify-center gap-4">
-                <Button
-                    variant="ghost"
-                    className="[&>[data-status='active']]:text-blue-500"
+            <nav className="flex gap-3">
+                <Link
+                    to="/train"
+                    className="rounded-lg p-1 px-2 transition-all hover:bg-green-500/30"
                 >
-                    <Link to="/">Traduzir Libras</Link>
-                </Button>
+                    Treinar modelo
+                </Link>
 
-                <Button
-                    variant="ghost"
-                    className="[&>[data-status='active']]:text-blue-500"
+                <Link
+                    to="/"
+                    className="rounded-lg bg-green-500 px-3 py-1 text-white shadow-lg transition-all hover:scale-103"
                 >
-                    <Link to="/train">Treinar modelo</Link>
-                </Button>
+                    Traduzir{' '}
+                    <span className="font-instrument tracking-wider italic">
+                        Libras
+                    </span>
+                </Link>
             </nav>
         </header>
     );

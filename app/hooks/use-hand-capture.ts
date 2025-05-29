@@ -20,7 +20,7 @@ export function useHandCapture() {
 
     const action = useCallback(
         (results) => {
-            if (currentLetter) {
+            if (currentLetter && results.multiHandLandmarks[0]) {
                 const landmarks = results.multiHandLandmarks[0].flatMap(
                     (point: HandLandmark) => [point.x, point.y, point.z]
                 );
