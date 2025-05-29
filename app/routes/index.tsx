@@ -9,8 +9,7 @@ export const Route = createFileRoute('/')({
 });
 
 function RouteComponent() {
-    const { modelStatus, handleFileChange, loadModel, model } =
-        useImportModel();
+    const { modelStatus, loadModel, model } = useImportModel();
     const { videoRef, canvasRef, predictedLetter } = useHandTranslate({
         model
     });
@@ -66,7 +65,7 @@ function RouteComponent() {
                 treino realizado. Caso não tenha treinado, você pode{' '}
                 <Link
                     to="/train"
-                    className="underline-offset-4 font-semibold underline"
+                    className="font-semibold underline underline-offset-4"
                 >
                     treinar um modelo
                 </Link>
@@ -77,7 +76,7 @@ function RouteComponent() {
                 <input
                     id="file-upload"
                     type="file"
-                    onChange={handleFileChange}
+                    onChange={loadModel}
                     multiple
                     accept=".json,.bin"
                     className="hidden"

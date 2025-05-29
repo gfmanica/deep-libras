@@ -4,23 +4,15 @@ import * as tf from '@tensorflow/tfjs';
 
 export function useImportModel() {
     const [model, setModel] = useState<tf.LayersModel | null>(null);
-    const [modelFiles, setModelFiles] = useState<File[]>([]);
     const [modelStatus, setModelStatus] = useState('Nenhum modelo carregado');
-
-    /**
-     * Define os arquivos do modelo para o carregamento
-     */
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files) {
-            setModelFiles(Array.from(event.target.files));
-        }
-    };
 
     /**
      * Define o modelo para previsão usando os arquivos selecionados
      */
-    const loadModel = () => {
-        if (modelFiles.length === 0) {
+    const loadModel = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files ?? []);
+
+        if (files.length === 0) {
             alert('Selecione os arquivos do modelo primeiro!');
 
             return;
@@ -28,7 +20,7 @@ export function useImportModel() {
 
         setModelStatus('Carregando modelo...');
 
-        const handler = tf.io.browserFiles(modelFiles);
+        const handler = tf.io.browserFiles(files);
 
         tf.loadLayersModel(handler)
             .then((loadedModel) => {
@@ -45,9 +37,7 @@ export function useImportModel() {
 
     return {
         model,
-        modelFiles,
         modelStatus,
-        handleFileChange,
         loadModel
     };
 }
