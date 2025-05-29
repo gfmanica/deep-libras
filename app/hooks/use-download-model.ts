@@ -1,6 +1,22 @@
 import * as tf from '@tensorflow/tfjs';
 
-export function useDownloadModel({ model }: { model: tf.LayersModel | null }) {
+import { TrainingData } from '@/types';
+
+export function useDownloadModel({
+    model,
+    collectedData
+}: {
+    model: tf.LayersModel | null;
+    collectedData: TrainingData[];
+}) {
+    const classes = collectedData.reduce((acc, item) => {
+        if (!acc.includes(item.label)) {
+            acc.push(item.label);
+        }
+
+        return acc;
+    }, [] as string[]);
+
     /**
      * Baixa o modelo treinado
      */
@@ -10,6 +26,8 @@ export function useDownloadModel({ model }: { model: tf.LayersModel | null }) {
 
             return;
         }
+
+        model.setUserDefinedMetadata({ classes });
 
         model
             .save('downloads://modelo-libras')

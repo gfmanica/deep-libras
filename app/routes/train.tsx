@@ -19,7 +19,7 @@ function RouteComponent() {
     } = useHandCapture();
     const { trainModel, model, trainingStatus, trainingProgress } =
         useTrainModel({ collectedData });
-    const { downloadModel } = useDownloadModel({ model });
+    const { downloadModel } = useDownloadModel({ model, collectedData });
 
     const groupedCollectedData = () => {
         const initial: Record<string, number> = {};
@@ -34,8 +34,6 @@ function RouteComponent() {
 
         return initial;
     };
-
-    console.log(groupedCollectedData());
 
     return (
         <>

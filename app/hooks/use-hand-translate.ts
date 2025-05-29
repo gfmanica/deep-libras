@@ -18,9 +18,10 @@ export function useHandTranslate({ model }: { model: tf.LayersModel | null }) {
             pred.array()
                 .then((arr) => {
                     const index = arr[0].indexOf(Math.max(...arr[0]));
-                    const caracteres =
-                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'.split('');
-                    setPredictedLetter(caracteres[index] || '');
+                    const { classes } = model.getUserDefinedMetadata() as {
+                        classes: string[];
+                    };
+                    setPredictedLetter(classes[index] || '');
                 })
                 .catch((error) => {
                     console.error('Erro ao fazer predição:', error);
