@@ -86,7 +86,7 @@ function RouteComponent() {
                         <b className="font-bold">número</b> para realizar a
                         coleta dos dados, que dura 1 segundo por caracter. Caso
                         tenha digitado algum caracter por engano, clique em no{' '}
-                        <b className="font-bold">X</b> na letra dentro da
+                        <b className="font-bold">X</b> no caracter dentro da
                         listagem para excluir a informação coletada.
                     </p>
 
