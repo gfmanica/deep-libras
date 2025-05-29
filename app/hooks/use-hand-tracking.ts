@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import camera from '@mediapipe/camera_utils';
 import drawing from '@mediapipe/drawing_utils';
@@ -13,6 +13,33 @@ export function useHandTracking() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [results, setResults] = useState<any>(null);
 
+    // Refs para as instâncias
+    const handsRef = useRef<hands.Hands | null>(null);
+    const cameraRef = useRef<camera.Camera | null>(null);
+
+    const initializeHands = useCallback(() => {
+        handsRef.current = new Hands({
+            locateFile: (file) =>
+                `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+        });
+        handsRef.current.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.7,
+            minTrackingConfidence: 0.7
+        });
+    }, []);
+
+    const initializeCamera = useCallback((videoElement: HTMLVideoElement) => {
+        cameraRef.current = new Camera(videoElement, {
+            onFrame: async () => {
+                await handsRef.current?.send({ image: videoElement });
+            },
+            width: 640,
+            height: 480
+        });
+    }, []);
+
     useEffect(() => {
         if (!videoRef.current || !canvasRef.current) return;
 
@@ -22,17 +49,10 @@ export function useHandTracking() {
 
         if (!canvasCtx) return;
 
-        const hands = new Hands({
-            locateFile: (file) =>
-                `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-        });
-
-        hands.setOptions({
-            maxNumHands: 1,
-            modelComplexity: 1,
-            minDetectionConfidence: 0.7,
-            minTrackingConfidence: 0.7
-        });
+        // Inicializa Hands apenas uma vez
+        if (!handsRef.current) {
+            initializeHands();
+        }
 
         const onResults = (results: any) => {
             canvasCtx.save();
@@ -70,20 +90,17 @@ export function useHandTracking() {
             canvasCtx.restore();
         };
 
-        hands.onResults(onResults);
+        handsRef.current?.onResults(onResults);
 
-        const camera = new Camera(videoElement, {
-            onFrame: async () => {
-                await hands.send({ image: videoElement });
-            },
-            width: 640,
-            height: 480
-        });
+        // Inicializa Camera apenas uma vez
+        if (!cameraRef.current) {
+            initializeCamera(videoElement);
+        }
 
-        camera.start();
+        cameraRef.current?.start();
 
         return () => {
-            camera.stop();
+            cameraRef.current && cameraRef.current.stop();
         };
     }, []);
 
