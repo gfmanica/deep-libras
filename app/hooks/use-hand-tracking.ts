@@ -55,6 +55,9 @@ export function useHandTracking() {
                 canvasElement.width,
                 canvasElement.height
             );
+            // Inverte horizontalmente o canvas (mirror)
+            canvasCtx.translate(canvasElement.width, 0);
+            canvasCtx.scale(-1, 1);
             canvasCtx.drawImage(
                 results.image,
                 0,

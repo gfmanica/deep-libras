@@ -42,14 +42,18 @@ function RouteComponent() {
                     height={480}
                     autoPlay
                     muted
-                    className="scale-x-[-1] transform rounded-3xl"
+                    className="z-2 scale-x-[-1] transform rounded-3xl"
                 />
                 <canvas
                     ref={canvasRef}
                     width={640}
                     height={480}
-                    className="absolute top-0 left-0 rounded-3xl"
+                    className="absolute top-0 left-0 z-2 rounded-3xl"
                 />
+
+                <p className="absolute top-1/2 left-1/2 z-1 -translate-x-1/2 -translate-y-1/2 text-sm font-light whitespace-nowrap text-white">
+                    Permita acesso à câmera para começar a traduzir.
+                </p>
 
                 <div
                     data-hidden={!predictedLetter}

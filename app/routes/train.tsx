@@ -61,14 +61,18 @@ function RouteComponent() {
                         height={480}
                         autoPlay
                         muted
-                        className="scale-x-[-1] transform rounded-2xl"
+                        className="z-2 scale-x-[-1] transform rounded-2xl"
                     />
                     <canvas
                         ref={canvasRef}
                         width={640}
                         height={480}
-                        className="absolute top-0 left-0 rounded-2xl"
+                        className="absolute top-0 left-0 z-2 rounded-2xl"
                     />
+
+                    <p className="absolute top-1/2 left-1/2 z-1 -translate-x-1/2 -translate-y-1/2 text-sm font-light whitespace-nowrap text-white">
+                        Permita acesso à câmera para começar a coletar dados.
+                    </p>
 
                     <div
                         data-hidden={!currentLetter}
@@ -155,7 +159,10 @@ function RouteComponent() {
                 <button
                     onClick={trainModel}
                     className="cursor-pointer rounded-lg border border-green-800/10 bg-gradient-to-tr from-green-900/90 to-green-700/70 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
-                    disabled={trainingStatus === 'training' || !Object.entries(groupedCollectedData()).length}
+                    disabled={
+                        trainingStatus === 'training' ||
+                        !Object.entries(groupedCollectedData()).length
+                    }
                 >
                     {trainingStatus === 'training'
                         ? 'Treinando...'
