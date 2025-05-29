@@ -4,6 +4,8 @@ import camera from '@mediapipe/camera_utils';
 import drawing from '@mediapipe/drawing_utils';
 import hands from '@mediapipe/hands';
 
+import { handsInstance } from '@/utils/hands';
+
 const { Hands, HAND_CONNECTIONS } = hands;
 const { Camera } = camera;
 const { drawConnectors, drawLandmarks } = drawing;
@@ -14,20 +16,11 @@ export function useHandTracking() {
     const [results, setResults] = useState<any>(null);
 
     // Refs para as instâncias
-    const handsRef = useRef<hands.Hands | null>(null);
-    const cameraRef = useRef<camera.Camera | null>(null);
+    const handsRef = useRef<InstanceType<typeof Hands> | null>(null);
+    const cameraRef = useRef<InstanceType<typeof Camera> | null>(null);
 
     const initializeHands = useCallback(() => {
-        handsRef.current = new Hands({
-            locateFile: (file) =>
-                `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-        });
-        handsRef.current.setOptions({
-            maxNumHands: 1,
-            modelComplexity: 1,
-            minDetectionConfidence: 0.7,
-            minTrackingConfidence: 0.7
-        });
+        handsRef.current = handsInstance;
     }, []);
 
     const initializeCamera = useCallback((videoElement: HTMLVideoElement) => {
@@ -73,11 +66,11 @@ export function useHandTracking() {
             if (results.multiHandLandmarks) {
                 for (const landmarks of results.multiHandLandmarks) {
                     drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-                        color: '#00FF00',
+                        color: '#FFF',
                         lineWidth: 2
                     });
                     drawLandmarks(canvasCtx, landmarks, {
-                        color: '#FF0000',
+                        color: '#346846',
                         lineWidth: 1
                     });
                 }
