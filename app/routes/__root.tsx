@@ -60,7 +60,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 
                 <main className="flex h-dvh w-dvw flex-col gap-2">
                     <div className="m-2 flex-1 rounded-xl bg-white p-4 pt-[80px]">
-                        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
+                        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
                             {children}
                         </div>
                     </div>

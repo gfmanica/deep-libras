@@ -17,18 +17,25 @@ function RouteComponent() {
 
     return (
         <>
-            <h1 className="mb-2 text-3xl font-light text-green-800">
+            <h1 className="text-3xl font-light text-green-800">
                 Treinar modelo de{' '}
                 <span className="font-instrument tracking-wider italic">
                     Libras
                 </span>
             </h1>
 
-            <h2 className="text-xl font-light">Coletar dados para o modelo</h2>
+            <h2 className="inline-flex items-center gap-2 text-xl font-light">
+                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600">
+                    <p className="font-instrument text-base text-white italic">
+                        1
+                    </p>
+                </div>
+                Coletar dados para o modelo
+            </h2>
 
             <div className="flex flex-1 gap-4">
                 <div className="relative h-[480px] w-[640px]">
-                    {/* <video
+                    <video
                         ref={videoRef}
                         width={640}
                         height={480}
@@ -41,7 +48,7 @@ function RouteComponent() {
                         width={640}
                         height={480}
                         className="absolute top-0 left-0 rounded-2xl"
-                    /> */}
+                    />
 
                     <div
                         data-hidden={!currentLetter}
@@ -55,8 +62,8 @@ function RouteComponent() {
                     <p className="font-light">
                         Digite alguma <b className="font-bold">letra</b> ou{' '}
                         <b className="font-bold">número</b> para realizar a
-                        coleta dos dados, que dura 1 segundo. Caso tenha
-                        digitado algum caracter por engano, clique em no{' '}
+                        coleta dos dados, que dura 1 segundo por caracter. Caso
+                        tenha digitado algum caracter por engano, clique em no{' '}
                         <b className="font-bold">X</b> na letra dentro da
                         listagem para excluir a informação coletada.
                     </p>
@@ -65,28 +72,51 @@ function RouteComponent() {
                 </div>
             </div>
 
+            <h2 className="inline-flex items-center gap-2 text-xl font-light">
+                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600">
+                    <p className="font-instrument text-base text-white italic">
+                        2
+                    </p>
+                </div>
+                Realizar treinamento
+            </h2>
+
+            <p className="font-light">
+                Para realizar o treinamento, é necessário ter coletado ao mínimo
+                <b className="font-bold"> 1 amostra</b> de caracter. Após isso,
+                clique no botão{' '}
+                <b className="font-bold text-green-800">Treinar modelo</b> para
+                iniciar o treinamento. <br />
+                Enquanto o treinamento está em andamento, será exibido métricas
+                sobre o treinamento, e não será possível coletar outros dados,
+                realizar outro treinamento ou baixar o modelo. <br />
+                Quando o treinamento for concluído, clique em{' '}
+                <b className="font-bold text-blue-800">Baixar modelo</b> para
+                salvar o modelo treinado no dispositivo.
+            </p>
+
             <div className="flex gap-4">
                 <button
                     onClick={trainModel}
-                    className="rounded bg-green-500 px-4 py-2 text-white transition-colors hover:bg-green-600"
+                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-green-800 to-green-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
                     disabled={trainingStatus === 'training'}
                 >
                     {trainingStatus === 'training'
                         ? 'Treinando...'
-                        : 'Treinar Modelo'}
+                        : 'Treinar modelo'}
                 </button>
 
                 <button
                     onClick={downloadModel}
-                    className="rounded bg-purple-500 px-4 py-2 text-white transition-colors hover:bg-purple-600"
+                    className="cursor-pointer rounded-lg bg-gradient-to-tr from-blue-800 to-blue-700 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
                     disabled={trainingStatus !== 'ready'}
                 >
-                    Baixar Modelo
+                    Baixar modelo
                 </button>
             </div>
 
             {trainingProgress && (
-                <pre className="mt-4 w-full max-w-2xl overflow-auto rounded-lg bg-gray-100 p-4">
+                <pre className="mt-4 w-full max-w-2xl overflow-auto rounded-lg bg-zinc-100 p-4">
                     {trainingProgress}
                 </pre>
             )}
