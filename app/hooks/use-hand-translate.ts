@@ -33,6 +33,14 @@ export function useHandTranslate({ model }: { model: tf.LayersModel | null }) {
         }
     }, [results]);
 
+    useEffect(() => {
+        if (predictedLetter) {
+            const timeout = setTimeout(() => setPredictedLetter(''), 3000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [predictedLetter]);
+
     return {
         videoRef,
         canvasRef,

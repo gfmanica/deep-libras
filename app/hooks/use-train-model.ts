@@ -10,59 +10,54 @@ export function useTrainModel({ collectedData }: { collectedData: any[] }) {
         useState<TrainingStatus>('idle');
     const [trainingProgress, setTrainingProgress] = useState('');
 
-    const trainModel = async () => {
-        if (collectedData.length === 0) {
-            alert('Nenhum dado coletado para treinar o modelo!');
-            return;
-        }
-
+    const trainModel = () => {
         setTrainingStatus('training');
         setTrainingProgress('Iniciando treinamento...\n');
 
-        try {
-            const classes = Array.from(
-                new Set(collectedData.map((item) => item.label))
-            );
-            const entradas = collectedData.map((item) => item.landmarks);
-            const saidas = collectedData.map((item) => item.label);
+        const classes = Array.from(
+            new Set(collectedData.map((item) => item.label))
+        );
+        const entradas = collectedData.map((item) => item.landmarks);
+        const saidas = collectedData.map((item) => item.label);
 
-            // Codifica os rótulos como one-hot
-            const labelsCodificadas = saidas.map((l) => {
-                const vetor = Array(classes.length).fill(0);
-                vetor[classes.indexOf(l)] = 1;
-                return vetor;
-            });
+        // Codifica os rótulos como one-hot
+        const labelsCodificadas = saidas.map((l) => {
+            const vetor = Array(classes.length).fill(0);
+            vetor[classes.indexOf(l)] = 1;
+            return vetor;
+        });
 
-            // Converte para tensores
-            const xs = tf.tensor2d(entradas);
-            const ys = tf.tensor2d(labelsCodificadas);
+        // Converte para tensores
+        const xs = tf.tensor2d(entradas);
+        const ys = tf.tensor2d(labelsCodificadas);
 
-            // Cria modelo
-            const newModel = tf.sequential();
-            newModel.add(
-                tf.layers.dense({
-                    inputShape: [63],
-                    units: 128,
-                    activation: 'relu'
-                })
-            );
-            
-            newModel.add(tf.layers.dropout({ rate: 0.3 }));
-            newModel.add(tf.layers.dense({ units: 64, activation: 'relu' }));
-            newModel.add(
-                tf.layers.dense({
-                    units: classes.length,
-                    activation: 'softmax'
-                })
-            );
+        // Cria modelo
+        const newModel = tf.sequential();
+        newModel.add(
+            tf.layers.dense({
+                inputShape: [63],
+                units: 128,
+                activation: 'relu'
+            })
+        );
 
-            newModel.compile({
-                optimizer: 'adam',
-                loss: 'categoricalCrossentropy',
-                metrics: ['accuracy']
-            });
+        newModel.add(tf.layers.dropout({ rate: 0.3 }));
+        newModel.add(tf.layers.dense({ units: 64, activation: 'relu' }));
+        newModel.add(
+            tf.layers.dense({
+                units: classes.length,
+                activation: 'softmax'
+            })
+        );
 
-            await newModel.fit(xs, ys, {
+        newModel.compile({
+            optimizer: 'adam',
+            loss: 'categoricalCrossentropy',
+            metrics: ['accuracy']
+        });
+
+        newModel
+            .fit(xs, ys, {
                 epochs: 60,
                 batchSize: 32,
                 shuffle: true,
@@ -75,24 +70,25 @@ export function useTrainModel({ collectedData }: { collectedData: any[] }) {
                         );
                     }
                 }
+            })
+            .then(() => {
+                setModel(newModel);
+                setTrainingStatus('ready');
+                setTrainingProgress(
+                    (prev) => prev + '\n✅ Modelo treinado com sucesso!'
+                );
+
+                // Salva o modelo no indexeddb
+                newModel.save('indexeddb://modelo-libras');
+            })
+            .catch((error) => {
+                console.error('Erro ao treinar modelo:', error);
+                setTrainingStatus('error');
+
+                setTrainingProgress(
+                    (prev) => prev + '\n❌ Erro ao treinar modelo!'
+                );
             });
-
-            setModel(newModel);
-            setTrainingStatus('ready');
-            setTrainingProgress(
-                (prev) => prev + '\n✅ Modelo treinado com sucesso!'
-            );
-
-            // Salva o modelo no IndexedDB
-            await newModel.save('indexeddb://modelo-libras');
-        } catch (error) {
-            console.error('Erro ao treinar modelo:', error);
-            setTrainingStatus('error');
-
-            setTrainingProgress(
-                (prev) => prev + '\n❌ Erro ao treinar modelo!'
-            );
-        }
     };
 
     return { trainModel, model, trainingStatus, trainingProgress };

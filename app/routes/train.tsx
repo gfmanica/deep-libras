@@ -88,7 +88,17 @@ function RouteComponent() {
                         listagem para excluir a informação coletada.
                     </p>
 
-                    <h1 className="text-xl font-light">Caracteres coletados</h1>
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-xl font-light">
+                            Caracteres coletados
+                        </h1>
+
+                        {!Object.entries(groupedCollectedData()).length && (
+                            <p className="text-sm font-light text-zinc-500">
+                                Nenhum caracter coletado.
+                            </p>
+                        )}
+                    </div>
 
                     <div className="flex flex-wrap gap-4">
                         {Object.entries(groupedCollectedData()).map(
@@ -145,7 +155,7 @@ function RouteComponent() {
                 <button
                     onClick={trainModel}
                     className="cursor-pointer rounded-lg border border-green-800/10 bg-gradient-to-tr from-green-900/90 to-green-700/70 px-3 py-1 font-light text-white shadow-xl transition-all hover:scale-103 disabled:cursor-not-allowed disabled:opacity-70"
-                    disabled={trainingStatus === 'training'}
+                    disabled={trainingStatus === 'training' || !Object.entries(groupedCollectedData()).length}
                 >
                     {trainingStatus === 'training'
                         ? 'Treinando...'
