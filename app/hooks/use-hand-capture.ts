@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { HandLandmark, TrainingData } from '@/types';
 
@@ -10,6 +10,7 @@ export function useHandCapture() {
     const [currentLetter, setCurrentLetter] = useState<string | null>(null);
     const [collectedData, setCollectedData] = useState<TrainingData[]>([]);
     const isCapturingDelayed = useRef(false);
+    const { videoRef, canvasRef, results } = useHandTracking();
 
     /**
      * Captura a letra digitada pelo usuário e a salva.
@@ -35,23 +36,22 @@ export function useHandCapture() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    const action = useCallback(
-        (results) => {
-            if (currentLetter && results.multiHandLandmarks[0]) {
-                const landmarks = results.multiHandLandmarks[0].flatMap(
-                    (point: HandLandmark) => [point.x, point.y, point.z]
-                );
+    useEffect(() => {
+        if (
+            currentLetter &&
+            results.multiHandLandmarks.length > 0 &&
+            results.multiHandLandmarks[0]
+        ) {
+            const landmarks = results.multiHandLandmarks[0].flatMap(
+                (point: HandLandmark) => [point.x, point.y, point.z]
+            );
 
-                setCollectedData((prev): any => [
-                    ...prev,
-                    { landmarks, label: currentLetter }
-                ]);
-            }
-        },
-        [currentLetter]
-    );
-
-    const { videoRef, canvasRef } = useHandTracking({ action });
+            setCollectedData((prev): any => [
+                ...prev,
+                { landmarks, label: currentLetter }
+            ]);
+        }
+    }, [results]);
 
     return {
         videoRef,

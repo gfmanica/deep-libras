@@ -25,7 +25,7 @@ function RouteComponent() {
             </h1>
 
             <h2 className="inline-flex items-center gap-2 text-xl font-light">
-                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600">
+                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600 shadow-md">
                     <p className="font-instrument text-base text-white italic">
                         1
                     </p>
@@ -73,7 +73,7 @@ function RouteComponent() {
             </div>
 
             <h2 className="inline-flex items-center gap-2 text-xl font-light">
-                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600">
+                <div className="inline-flex size-[24px] items-center justify-center rounded-full bg-gradient-to-tr from-green-800 to-green-600 shadow-md">
                     <p className="font-instrument text-base text-white italic">
                         2
                     </p>

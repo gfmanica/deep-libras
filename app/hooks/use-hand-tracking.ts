@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import camera from '@mediapipe/camera_utils';
 import drawing from '@mediapipe/drawing_utils';
@@ -8,12 +8,10 @@ const { Hands, HAND_CONNECTIONS } = hands;
 const { Camera } = camera;
 const { drawConnectors, drawLandmarks } = drawing;
 
-export function useHandTracking(params?: {
-    action?: (results: any) => void | Promise<void>;
-}) {
-    const action = params?.action;
+export function useHandTracking() {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [results, setResults] = useState<any>(null);
 
     useEffect(() => {
         if (!videoRef.current || !canvasRef.current) return;
@@ -64,7 +62,9 @@ export function useHandTracking(params?: {
                     });
                 }
 
-                action?.(results);
+                if (results.multiHandLandmarks.length > 0) {
+                    setResults(results);
+                }
             }
 
             canvasCtx.restore();
@@ -85,7 +85,7 @@ export function useHandTracking(params?: {
         return () => {
             camera.stop();
         };
-    }, [action]);
+    }, []);
 
-    return { videoRef, canvasRef };
+    return { videoRef, canvasRef, results };
 }
