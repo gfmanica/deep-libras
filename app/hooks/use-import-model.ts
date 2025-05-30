@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as tf from '@tensorflow/tfjs';
 
@@ -6,7 +6,17 @@ import { ImportingStatus } from '@/types';
 
 export function useImportModel() {
     const [model, setModel] = useState<tf.LayersModel | null>(null);
-    const [modelStatus, setModelStatus] = useState<ImportingStatus>('idle');
+    const [modelStatus, setModelStatus] = useState<ImportingStatus>('default');
+
+    useEffect(() => {
+        tf.loadLayersModel('/modelo-libras.json')
+            .then((model) => setModel(model))
+            .catch((error) => {
+                console.error('Erro ao carregar o modelo:', error);
+
+                setModelStatus('error');
+            });
+    }, []);
 
     /**
      * Define o modelo para previsão usando os arquivos selecionados

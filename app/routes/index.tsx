@@ -17,7 +17,7 @@ function RouteComponent() {
     });
 
     return (
-        <div className="mx-4 flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12 xl:mx-0">
+        <div className="mx-4 flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-8 pt-12 xl:mx-0">
             <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
                 Traduza{' '}
                 <span className="font-instrument tracking-wider italic">
@@ -63,9 +63,10 @@ function RouteComponent() {
                 </div>
             </div>
 
-            <p className="max-w-[480px] text-center text-sm font-light text-white">
-                Para a tradução funcionar, você precisa importar os arquivos com
-                as extensões <span className="font-semibold">json</span> e{' '}
+            <p className="max-w-[560px] text-center text-sm font-light text-white">
+                Você pode usar seu próprio modelo de aprendizado de máquina para
+                traduzir! Para isso, basta importar os arquivos com as
+                extensões <span className="font-semibold">json</span> e{' '}
                 <span className="font-semibold">bin</span>, gerados a partir do
                 treino realizado. Caso não tenha treinado, você pode{' '}
                 <Link
