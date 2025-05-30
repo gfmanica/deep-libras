@@ -17,7 +17,7 @@ function RouteComponent() {
     });
 
     return (
-        <div className="flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12">
+        <div className="my-4 mx-4 flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12 lg:mx-0">
             <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
                 Traduza{' '}
                 <span className="font-instrument tracking-wider italic">
@@ -57,14 +57,14 @@ function RouteComponent() {
 
                 <div
                     data-hidden={!predictedLetter}
-                    className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                    className="absolute right-4 bottom-4 z-3 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
                 >
                     {predictedLetter}
                 </div>
             </div>
 
             <p className="max-w-[480px] text-center text-sm font-light text-white">
-                Para a tradução funcionar, você precisa importar os modelos com
+                Para a tradução funcionar, você precisa importar os arquivos com
                 as extensões <span className="font-semibold">json</span> e{' '}
                 <span className="font-semibold">bin</span>, gerados a partir do
                 treino realizado. Caso não tenha treinado, você pode{' '}

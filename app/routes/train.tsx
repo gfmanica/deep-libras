@@ -76,7 +76,7 @@ function RouteComponent() {
 
                     <div
                         data-hidden={!currentLetter}
-                        className="absolute right-4 bottom-4 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
+                        className="absolute right-4 bottom-4 z-3 flex h-16 w-16 items-center justify-center rounded-lg border border-white/40 bg-white/40 text-3xl text-black opacity-100 shadow-md backdrop-blur-md transition-opacity duration-300 data-[hidden=true]:opacity-0"
                     >
                         {currentLetter}
                     </div>
@@ -109,7 +109,7 @@ function RouteComponent() {
                             ([label, count]) => (
                                 <div
                                     key={label}
-                                    className="relative inline-flex h-16 w-12 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-gradient-to-tr from-zinc-50 to-zinc-100 shadow-sm"
+                                    className="relative inline-flex h-16 w-16 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-gradient-to-tr from-zinc-50 to-zinc-100 shadow-sm"
                                 >
                                     <button
                                         onClick={() =>
