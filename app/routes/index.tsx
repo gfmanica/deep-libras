@@ -17,7 +17,7 @@ function RouteComponent() {
     });
 
     return (
-        <div className="mb-4 mx-4 flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12 xl:mx-0">
+        <div className="mx-4 flex flex-col items-center gap-8 rounded-xl border border-green-800/10 bg-gradient-to-br from-green-700/50 to-green-900/90 p-6 pt-12 xl:mx-0">
             <h1 className="font-inter text-3xl font-light text-white text-shadow-lg">
                 Traduza{' '}
                 <span className="font-instrument tracking-wider italic">

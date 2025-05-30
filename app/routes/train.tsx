@@ -37,7 +37,7 @@ function RouteComponent() {
 
     return (
         <>
-            <h1 className="text-3xl font-light text-green-800">
+            <h1 className="text-3xl mt-2 font-light text-green-800">
                 Treinar modelo de{' '}
                 <span className="font-instrument tracking-wider italic">
                     Libras
